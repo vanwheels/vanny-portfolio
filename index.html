@@ -110,9 +110,23 @@
   @media (max-width: 560px) { h1 { font-size: 30px; } }
 
   /* sections */
-  section { padding: 48px 0 52px; border-top: 1px solid var(--border); }
-  .hero + section { border-top: 1px solid var(--border); }
-  .section-head { margin-bottom: 28px; }
+  #about, #contact { padding: 48px 0 52px; border-top: 1px solid var(--border); }
+
+  .band { padding: 56px 0 60px; border-top: 2px solid var(--border); background: var(--bg); }
+  .band-games { border-top-color: var(--accent); background: color-mix(in srgb, var(--accent) 5%, var(--bg)); }
+  .band-credits { border-top-color: var(--accent-3); background: color-mix(in srgb, var(--accent-3) 5%, var(--bg)); }
+  .band-products { border-top-color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 5%, var(--bg)); }
+
+  .section-head { margin-bottom: 28px; position: relative; padding-right: 64px; }
+  .section-head .idx {
+    position: absolute; top: -4px; right: 0;
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 44px; line-height: 1;
+    color: var(--border); opacity: .6; pointer-events: none;
+  }
+  .band-games .idx { color: var(--accent); }
+  .band-credits .idx { color: var(--accent-3); }
+  .band-products .idx { color: var(--accent-2); }
+  @media (max-width: 560px) { .section-head { padding-right: 0; } .section-head .idx { display: none; } }
   .section-head .tag {
     font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
     color: var(--accent-2);
@@ -292,7 +306,6 @@
   </nav>
 
   <div class="wrap">
-
     <div id="top" class="hero">
       <div class="hero-mascot"><img src="images/choicebuds-icon.png" alt="" /></div>
 
@@ -300,9 +313,12 @@
       <h1>Building tactical games, and the small tools that help fund them.</h1>
       <p class="sub">I'm Vanny. My main focus is Pantheon Tactics — a turn-based ARPG roguelike — alongside ChoiceBuds, a team-building tool for competitive Pokémon VGC. In between, I ship small Tailwind kits and templates to help keep the lights on.</p>
     </div>
+  </div>
 
-    <section id="games">
+  <section id="games" class="band band-games">
+    <div class="wrap">
       <div class="section-head">
+        <span class="idx">01</span>
         <div class="tag">Currently building</div>
         <h2>Games</h2>
         <p>The main projects — where most of the actual creative work goes.</p>
@@ -351,10 +367,13 @@
         </div>
 
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="credits">
+  <section id="credits" class="band band-credits">
+    <div class="wrap">
       <div class="section-head">
+        <span class="idx">02</span>
         <div class="tag">Also credited on</div>
         <h2>Audio &amp; VO Work</h2>
         <p>Composing, sound design, and voice direction for other teams' projects.</p>
@@ -390,10 +409,13 @@
         </a>
 
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="products">
+  <section id="products" class="band band-products">
+    <div class="wrap">
       <div class="section-head">
+        <span class="idx">03</span>
         <div class="tag">Shipped</div>
         <h2>Products</h2>
         <p>Small, self-contained kits and templates — built fast, sold on Gumroad, funding the games above.</p>
@@ -451,8 +473,10 @@
         </div>
 
       </div>
-    </section>
+    </div>
+  </section>
 
+  <div class="wrap">
     <section id="about">
       <div class="section-head">
         <div class="tag">About</div>
