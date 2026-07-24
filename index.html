@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vanny — Games &amp; Dev Tools</title>
+<meta name="description" content="Vanny — indie developer building Pantheon Tactics and ChoiceBuds, and shipping small dev kits along the way." />
+<style>
+  :root {
+    --bg: #0B0D12;
+    --bg-alt: #10131A;
+    --card: #12151C;
+    --card-border: #232733;
+    --text: #F1F3F7;
+    --text-dim: #8A93A6;
+    --accent: #6EE7F2;
+    --accent-soft: rgba(110, 231, 242, 0.12);
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #F5F6F8;
+      --bg-alt: #FFFFFF;
+      --card: #FFFFFF;
+      --card-border: #E4E7ED;
+      --text: #14161C;
+      --text-dim: #6B7280;
+      --accent: #0EA5B7;
+      --accent-soft: rgba(14, 165, 183, 0.10);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0B0D12; --bg-alt: #10131A; --card: #12151C; --card-border: #232733;
+    --text: #F1F3F7; --text-dim: #8A93A6; --accent: #6EE7F2; --accent-soft: rgba(110, 231, 242, 0.12);
+  }
+  :root[data-theme="light"] {
+    --bg: #F5F6F8; --bg-alt: #FFFFFF; --card: #FFFFFF; --card-border: #E4E7ED;
+    --text: #14161C; --text-dim: #6B7280; --accent: #0EA5B7; --accent-soft: rgba(14, 165, 183, 0.10);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--card-border);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; max-width: 920px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-size: 15px; }
+  .brand .mark {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: var(--accent-soft); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px;
+  }
+  .navlinks { display: flex; gap: 28px; font-size: 13.5px; font-weight: 600; }
+  .navlinks a { text-decoration: none; color: var(--text-dim); }
+  .navlinks a:hover { color: var(--accent); }
+  @media (max-width: 560px) { .navlinks { gap: 16px; } }
+
+  /* hero */
+  .hero { padding: 88px 0 64px; }
+  .eyebrow {
+    font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--accent); margin-bottom: 14px;
+  }
+  h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.02em; max-width: 620px; }
+  .hero p.sub {
+    margin-top: 16px; font-size: 17px; color: var(--text-dim); max-width: 560px;
+  }
+  @media (max-width: 560px) { h1 { font-size: 30px; } }
+
+  /* sections */
+  section { padding: 56px 0; border-top: 1px solid var(--card-border); }
+  .section-head { margin-bottom: 32px; }
+  .section-head .tag {
+    font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text-dim);
+  }
+  .section-head h2 { font-size: 24px; font-weight: 800; margin-top: 8px; letter-spacing: -0.01em; }
+  .section-head p { margin-top: 8px; color: var(--text-dim); font-size: 14.5px; max-width: 560px; }
+
+  /* project cards */
+  .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  .grid.two { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 720px) { .grid.two { grid-template-columns: 1fr; } }
+
+  .proj {
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    background: var(--card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .proj:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .proj .media {
+    aspect-ratio: 16/9;
+    background: var(--bg-alt);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .proj .media img { width: 100%; height: 100%; object-fit: cover; }
+  .proj .media .placeholder {
+    color: var(--text-dim); font-size: 13px; font-weight: 600;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .proj .media .placeholder .glyph { font-size: 30px; opacity: .6; }
+  .proj .body { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .proj .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .proj h3 { font-size: 16.5px; font-weight: 700; }
+  .status {
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+    padding: 3px 8px; border-radius: 999px; white-space: nowrap;
+    background: var(--accent-soft); color: var(--accent);
+  }
+  .proj .desc { font-size: 13.5px; color: var(--text-dim); flex: 1; }
+  .proj .cta {
+    margin-top: 4px; font-size: 13px; font-weight: 700; color: var(--accent);
+    text-decoration: none;
+  }
+  .proj .cta.disabled { color: var(--text-dim); cursor: default; }
+  a.linkwrap { display: contents; }
+  a.linkwrap, a.linkwrap * { text-decoration: none; }
+  a.linkwrap .cta { text-decoration: none; }
+
+  .icon-wrap {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft);
+  }
+  .icon-wrap img { width: 96px; height: 96px; object-fit: cover; border-radius: 20px; }
+
+  /* about */
+  #about p { max-width: 620px; color: var(--text-dim); font-size: 15.5px; }
+  #about p + p { margin-top: 14px; }
+
+  /* footer */
+  footer { padding: 40px 0 64px; }
+  .footlinks { display: flex; flex-wrap: wrap; gap: 10px; }
+  .footlinks a {
+    font-size: 13.5px; font-weight: 600;
+    padding: 9px 16px; border-radius: 999px;
+    border: 1px solid var(--card-border);
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .footlinks a:hover { border-color: var(--accent); color: var(--accent); }
+  .copyright { margin-top: 28px; font-size: 12.5px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="#top">
+        <span class="mark">V</span>
+        Vanny
+      </a>
+      <div class="navlinks">
+        <a href="#games">Games</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <div id="top" class="hero">
+      <div class="eyebrow">Indie developer</div>
+      <h1>Building tactical games, and the small tools that help fund them.</h1>
+      <p class="sub">I'm Vanny. My main focus is Pantheon Tactics — a turn-based ARPG roguelike — alongside ChoiceBuds, a team-building tool for competitive Pokémon VGC. In between, I ship small Tailwind kits and templates to help keep the lights on.</p>
+    </div>
+
+    <section id="games">
+      <div class="section-head">
+        <div class="tag">Currently building</div>
+        <h2>Games</h2>
+        <p>The main projects — where most of the actual creative work goes.</p>
+      </div>
+      <div class="grid two">
+
+        <div class="proj">
+          <div class="media">
+            <div class="placeholder">
+              <span class="glyph">⚔️</span>
+              <span>Screenshots coming soon</span>
+            </div>
+          </div>
+          <div class="body">
+            <div class="row">
+              <h3>Pantheon Tactics</h3>
+              <span class="status">In development</span>
+            </div>
+            <p class="desc">A turn-based ARPG roguelike built around the various mythos of the world. Built in Godot.</p>
+            <span class="cta disabled">Not yet public</span>
+          </div>
+        </div>
+
+        <a class="linkwrap" href="https://github.com/vanwheels/ChoiceBuds" target="_blank" rel="noopener">
+          <div class="proj">
+            <div class="media">
+              <div class="icon-wrap">
+                <img src="images/choicebuds-icon.png" alt="ChoiceBuds" />
+              </div>
+            </div>
+            <div class="body">
+              <div class="row">
+                <h3>ChoiceBuds</h3>
+                <span class="status">In development</span>
+              </div>
+              <p class="desc">A Pokémon VGC team-builder — import teams from Showdown or PokePaste, run damage calculations, check format legality, and export an official team-sheet PDF.</p>
+              <span class="cta">View on GitHub →</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="section-head">
+        <div class="tag">Shipped</div>
+        <h2>Products</h2>
+        <p>Small, self-contained kits and templates — built fast, sold on Gumroad, funding the games above.</p>
+      </div>
+      <div class="grid two">
+
+        <a class="linkwrap" href="https://vannyproductions.gumroad.com/l/CyberKit" target="_blank" rel="noopener">
+          <div class="proj">
+            <div class="media"><img src="images/cyberkit-cover.png" alt="CyberKit" /></div>
+            <div class="body">
+              <h3>CyberKit</h3>
+              <p class="desc">A cyberpunk Tailwind CSS component kit — 5 themes, zero JavaScript, zero config.</p>
+              <span class="cta">View on Gumroad →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="linkwrap" href="https://vannyproductions.gumroad.com/l/ClearDeck" target="_blank" rel="noopener">
+          <div class="proj">
+            <div class="media"><img src="images/cleardeck-cover.png" alt="ClearDeck" /></div>
+            <div class="body">
+              <h3>ClearDeck</h3>
+              <p class="desc">A light-mode SaaS dashboard Tailwind kit — 3 themes, copy-paste ready.</p>
+              <span class="cta">View on Gumroad →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="linkwrap" href="https://vannyproductions.gumroad.com/l/FreelanceCRM" target="_blank" rel="noopener">
+          <div class="proj">
+            <div class="media"><img src="images/freelancecrm-cover.png" alt="Freelance Client CRM" /></div>
+            <div class="body">
+              <h3>Freelance Client CRM</h3>
+              <p class="desc">A Notion template for tracking clients, projects, and invoices — with rollups built in.</p>
+              <span class="cta">View on Gumroad →</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-head">
+        <div class="tag">About</div>
+        <h2>Hi, I'm Vanny</h2>
+      </div>
+      <p>I'm an indie developer splitting my time between two things: building Pantheon Tactics, a turn-based ARPG roguelike woven from world mythology, and ChoiceBuds, a team-building tool for competitive Pokémon VGC players.</p>
+      <p>Alongside those, I build and ship small, self-contained dev kits and templates — Tailwind component kits, Notion templates — fast, cheap products that help fund the bigger, slower-moving games.</p>
+    </section>
+
+    <section id="contact">
+      <div class="section-head">
+        <div class="tag">Get in touch</div>
+        <h2>Links</h2>
+      </div>
+      <div class="footlinks">
+        <a href="https://github.com/vanwheels" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://links.vannyproductions.com" target="_blank" rel="noopener">All links</a>
+        <a href="mailto:contact@vannyproductions.com">contact@vannyproductions.com</a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="copyright">© 2026 Vanny Productions</div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
