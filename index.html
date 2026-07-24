@@ -18,8 +18,10 @@
     --border: #E7D3AC;
     --accent: #C8502F;
     --accent-2: #2F6E63;
+    --accent-3: #6D42C4;
     --accent-soft: rgba(200, 80, 47, 0.10);
     --accent-2-soft: rgba(47, 110, 99, 0.10);
+    --accent-3-soft: rgba(109, 66, 196, 0.10);
     --shadow: rgba(43, 32, 22, 0.10);
   }
   @media (prefers-color-scheme: dark) {
@@ -32,8 +34,10 @@
       --border: #333944;
       --accent: #FF8156;
       --accent-2: #63C2AB;
+      --accent-3: #B79CFF;
       --accent-soft: rgba(255, 129, 86, 0.14);
       --accent-2-soft: rgba(99, 194, 171, 0.13);
+      --accent-3-soft: rgba(183, 156, 255, 0.14);
       --shadow: rgba(0, 0, 0, 0.45);
     }
   }
@@ -115,6 +119,9 @@
   }
   .section-head h2 { font-size: 26px; font-weight: 700; margin-top: 8px; letter-spacing: -0.01em; }
   .section-head p { margin-top: 8px; color: var(--ink-dim); font-size: 15px; max-width: 560px; }
+  #games .section-head .tag { color: var(--accent); }
+  #products .section-head .tag { color: var(--accent-2); }
+  #credits .section-head .tag { color: var(--accent-3); }
 
   /* project cards */
   .grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
@@ -123,6 +130,7 @@
 
   .proj {
     border: 1px solid var(--border);
+    border-top: 3px solid var(--proj-accent, var(--border));
     border-radius: 14px;
     background: var(--card);
     overflow: hidden;
@@ -150,11 +158,12 @@
   .proj .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .proj h3 { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; }
   .proj h3.clickable { cursor: pointer; }
-  .proj h3.clickable:hover { color: var(--accent); }
+  .proj:hover h3 { color: color-mix(in srgb, var(--proj-accent, var(--accent)) 70%, var(--ink) 30%); }
   .status {
     font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
     padding: 4px 10px; border-radius: 999px; white-space: nowrap;
-    background: var(--accent-2-soft); color: var(--accent-2);
+    background: color-mix(in srgb, var(--proj-accent, var(--accent-2)) 16%, var(--card));
+    color: color-mix(in srgb, var(--proj-accent, var(--accent-2)) 70%, var(--ink) 30%);
   }
   .proj .desc { font-size: 13.5px; color: var(--ink-dim); flex: 1; }
   .proj .actions { display: flex; align-items: center; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
@@ -173,13 +182,17 @@
     border: 1px solid var(--border);
     background: transparent;
   }
-  .proj .cta:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .proj .cta:hover:not(.disabled) {
+    border-color: color-mix(in srgb, var(--proj-accent, var(--accent)) 70%, var(--border) 30%);
+    background: color-mix(in srgb, var(--proj-accent, var(--accent)) 14%, var(--card));
+    color: color-mix(in srgb, var(--proj-accent, var(--accent)) 70%, var(--ink) 30%);
+  }
   .proj .gallery-btn {
     color: var(--ink-dim);
     border: 1px solid transparent;
     background: var(--bg-alt);
   }
-  .proj .gallery-btn:hover { color: var(--ink); }
+  .proj .gallery-btn:hover { color: color-mix(in srgb, var(--proj-accent, var(--accent)) 70%, var(--ink) 30%); }
   .proj .cta.disabled { color: var(--ink-dim); border-color: transparent; background: transparent; cursor: default; padding-left: 0; }
 
   .icon-wrap {
@@ -296,7 +309,7 @@
       </div>
       <div class="grid two">
 
-        <div class="proj" data-gallery-title="Pantheon Tactics">
+        <div class="proj" data-gallery-title="Pantheon Tactics" style="--proj-accent:#B8860B;">
           <div class="media clickable gallery-trigger">
             <img src="images/pantheon-tactics-screenshot-1.png" alt="Pantheon Tactics" />
           </div>
@@ -316,7 +329,7 @@
           </div>
         </div>
 
-        <div class="proj" data-gallery-title="ChoiceBuds">
+        <div class="proj" data-gallery-title="ChoiceBuds" style="--proj-accent:#4C5FD7;">
           <div class="media clickable gallery-trigger">
             <img src="images/choicebuds-screenshot-1.png" alt="ChoiceBuds" />
           </div>
@@ -349,7 +362,7 @@
       <div class="grid two">
 
         <a class="linkwrap" href="https://store.steampowered.com/app/3182270/Changeling_VR/" target="_blank" rel="noopener">
-          <div class="proj">
+          <div class="proj" style="--proj-accent:#8B5CF6;">
             <div class="media"><img src="images/changeling-vr-cover.jpg" alt="Changeling VR" /></div>
             <div class="body">
               <div class="row">
@@ -363,7 +376,7 @@
         </a>
 
         <a class="linkwrap" href="https://ggk-project.itch.io/gizmo-go-kartz" target="_blank" rel="noopener">
-          <div class="proj">
+          <div class="proj" style="--proj-accent:#D6862A;">
             <div class="media"><img src="images/gizmo-go-kartz-cover.png" alt="Gizmo Go-Kartz" /></div>
             <div class="body">
               <div class="row">
@@ -387,7 +400,7 @@
       </div>
       <div class="grid two">
 
-        <div class="proj" data-gallery-title="CyberKit">
+        <div class="proj" data-gallery-title="CyberKit" style="--proj-accent:#00AEEF;">
           <div class="media clickable gallery-trigger"><img src="images/cyberkit-cover.png" alt="CyberKit" /></div>
           <div class="body">
             <h3 class="clickable gallery-trigger">CyberKit</h3>
@@ -404,7 +417,7 @@
           </div>
         </div>
 
-        <div class="proj" data-gallery-title="ClearDeck">
+        <div class="proj" data-gallery-title="ClearDeck" style="--proj-accent:#3B7DDD;">
           <div class="media clickable gallery-trigger"><img src="images/cleardeck-cover.png" alt="ClearDeck" /></div>
           <div class="body">
             <h3 class="clickable gallery-trigger">ClearDeck</h3>
@@ -421,7 +434,7 @@
           </div>
         </div>
 
-        <div class="proj" data-gallery-title="Freelance Client CRM">
+        <div class="proj" data-gallery-title="Freelance Client CRM" style="--proj-accent:#2E9E5B;">
           <div class="media clickable gallery-trigger"><img src="images/freelancecrm-cover.png" alt="Freelance Client CRM" /></div>
           <div class="body">
             <h3 class="clickable gallery-trigger">Freelance Client CRM</h3>
