@@ -16,11 +16,11 @@
     --ink: #2B2016;
     --ink-dim: #8A7358;
     --border: #E7D3AC;
-    --accent: #E8603A;
+    --accent: #C8502F;
     --accent-2: #2F6E63;
-    --accent-soft: rgba(232, 96, 58, 0.13);
-    --accent-2-soft: rgba(47, 110, 99, 0.13);
-    --shadow-c: #2B2016;
+    --accent-soft: rgba(200, 80, 47, 0.10);
+    --accent-2-soft: rgba(47, 110, 99, 0.10);
+    --shadow: rgba(43, 32, 22, 0.10);
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -32,9 +32,9 @@
       --border: #40331F;
       --accent: #FF8156;
       --accent-2: #63C2AB;
-      --accent-soft: rgba(255, 129, 86, 0.18);
-      --accent-2-soft: rgba(99, 194, 171, 0.16);
-      --shadow-c: #000000;
+      --accent-soft: rgba(255, 129, 86, 0.14);
+      --accent-2-soft: rgba(99, 194, 171, 0.13);
+      --shadow: rgba(0, 0, 0, 0.35);
     }
   }
 
@@ -54,26 +54,23 @@
     font-optical-sizing: auto;
   }
 
-  .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; position: relative; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; position: relative; }
 
   /* nav */
   nav {
     position: sticky; top: 0; z-index: 20;
     background: color-mix(in srgb, var(--bg) 90%, transparent);
     backdrop-filter: blur(10px);
-    border-bottom: 2px solid var(--border);
+    border-bottom: 1px solid var(--border);
   }
-  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; max-width: 920px; }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; max-width: 960px; }
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
   .brand .mark {
-    width: 36px; height: 36px; border-radius: 10px;
+    width: 34px; height: 34px; border-radius: 9px;
     background: var(--accent);
-    border: 2px solid var(--ink);
-    box-shadow: 3px 3px 0 var(--shadow-c);
     color: #fff9f0;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 16px;
-    transform: rotate(-6deg);
+    font-weight: 800; font-size: 15px;
     font-family: 'Fraunces', serif;
   }
   .brand .word { font-weight: 700; font-size: 18px; }
@@ -83,25 +80,13 @@
   @media (max-width: 620px) { .navlinks { gap: 14px; } .navlinks a:nth-child(3) { display:none; } }
   @media (max-width: 420px) { .navlinks a:nth-child(4) { display:none; } }
 
-  /* decorative squiggle + sparkles */
-  .squiggle { display: block; height: 14px; margin-top: 2px; }
-  .squiggle path { stroke: var(--accent); }
-
-  .sparkle {
-    position: absolute;
-    color: var(--accent-2);
-    opacity: 0.85;
-  }
-
   .hero-mascot {
     position: absolute;
-    right: -6px;
-    top: 6px;
-    width: 92px; height: 92px;
+    right: 0;
+    top: 10px;
+    width: 84px; height: 84px;
     border-radius: 50%;
-    border: 2px solid var(--ink);
-    box-shadow: 4px 4px 0 var(--shadow-c);
-    transform: rotate(9deg);
+    box-shadow: 0 6px 20px var(--shadow);
     overflow: hidden;
     background: var(--card);
   }
@@ -109,117 +94,171 @@
   @media (max-width: 720px) { .hero-mascot { display: none; } }
 
   /* hero */
-  .hero { padding: 76px 0 60px; position: relative; }
+  .hero { padding: 72px 0 56px; position: relative; }
   .eyebrow {
     font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
     color: var(--accent); margin-bottom: 10px;
   }
-  h1 { font-size: 44px; font-weight: 700; letter-spacing: -0.01em; max-width: 640px; }
+  h1 { font-size: 42px; font-weight: 700; letter-spacing: -0.01em; max-width: 640px; }
   .hero p.sub {
-    margin-top: 18px; font-size: 17.5px; color: var(--ink-dim); max-width: 560px;
+    margin-top: 18px; font-size: 17px; color: var(--ink-dim); max-width: 560px;
   }
-  @media (max-width: 560px) { h1 { font-size: 32px; } }
-
-  /* wavy divider */
-  .wave { display: block; width: 100%; height: 16px; }
-  .wave path { stroke: var(--border); fill: none; stroke-width: 2; }
+  @media (max-width: 560px) { h1 { font-size: 30px; } }
 
   /* sections */
-  section { padding: 52px 0 56px; }
-  .section-head { margin-bottom: 30px; }
+  section { padding: 48px 0 52px; border-top: 1px solid var(--border); }
+  .hero + section { border-top: 1px solid var(--border); }
+  .section-head { margin-bottom: 28px; }
   .section-head .tag {
     font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
     color: var(--accent-2);
   }
-  .section-head h2 { font-size: 27px; font-weight: 700; margin-top: 8px; letter-spacing: -0.01em; }
+  .section-head h2 { font-size: 26px; font-weight: 700; margin-top: 8px; letter-spacing: -0.01em; }
   .section-head p { margin-top: 8px; color: var(--ink-dim); font-size: 15px; max-width: 560px; }
 
   /* project cards */
-  .grid { display: grid; grid-template-columns: 1fr; gap: 26px 22px; }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
   .grid.two { grid-template-columns: repeat(2, 1fr); }
   @media (max-width: 720px) { .grid.two { grid-template-columns: 1fr; } }
 
   .proj {
-    border: 2px solid var(--ink);
-    border-radius: 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
     background: var(--card);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 5px 5px 0 var(--shadow-c);
-    transform: rotate(var(--tilt, -1deg));
+    box-shadow: 0 1px 2px var(--shadow);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .grid .proj:nth-child(2n) { --tilt: 1deg; }
-  .proj:hover { transform: rotate(0deg) translateY(-3px); box-shadow: 7px 7px 0 var(--shadow-c); }
+  .proj:hover { transform: translateY(-2px); box-shadow: 0 10px 28px var(--shadow); }
   .proj .media {
     aspect-ratio: 16/9;
     background: var(--bg-alt);
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
-    border-bottom: 2px solid var(--ink);
+    border-bottom: 1px solid var(--border);
   }
+  .proj .media.clickable { cursor: pointer; }
   .proj .media img { width: 100%; height: 100%; object-fit: contain; }
   .proj .media .placeholder {
     color: var(--ink-dim); font-size: 13px; font-weight: 700;
     display: flex; flex-direction: column; align-items: center; gap: 8px;
   }
-  .proj .media .placeholder .glyph { font-size: 30px; opacity: .6; }
+  .proj .media .placeholder .glyph { font-size: 28px; opacity: .5; }
   .proj .body { padding: 20px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
   .proj .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .proj h3 { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; }
+  .proj h3.clickable { cursor: pointer; }
+  .proj h3.clickable:hover { color: var(--accent); }
   .status {
     font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
-    padding: 4px 10px; border-radius: 5px; white-space: nowrap;
+    padding: 4px 10px; border-radius: 999px; white-space: nowrap;
     background: var(--accent-2-soft); color: var(--accent-2);
-    border: 1.5px dashed var(--accent-2);
-    transform: rotate(3deg);
   }
   .proj .desc { font-size: 13.5px; color: var(--ink-dim); flex: 1; }
-  .proj .cta {
-    margin-top: 6px; font-size: 13px; font-weight: 800; color: var(--ink);
+  .proj .actions { display: flex; align-items: center; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
+  .proj .cta, .proj .gallery-btn {
+    font-size: 13px; font-weight: 700;
     text-decoration: none;
     display: inline-flex; align-items: center; gap: 6px;
-    padding: 8px 12px;
-    border: 2px solid var(--ink);
+    padding: 8px 14px;
     border-radius: 8px;
-    background: var(--accent-soft);
     width: fit-content;
-    box-shadow: 3px 3px 0 var(--shadow-c);
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    cursor: pointer;
   }
-  .proj a.linkwrap:hover .cta { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--shadow-c); }
-  .proj .cta.disabled { color: var(--ink-dim); background: transparent; box-shadow: none; cursor: default; }
-
-  a.linkwrap { display: contents; }
-  a.linkwrap, a.linkwrap * { text-decoration: none; }
+  .proj .cta {
+    color: var(--accent);
+    border: 1px solid var(--border);
+    background: transparent;
+  }
+  .proj .cta:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .proj .gallery-btn {
+    color: var(--ink-dim);
+    border: 1px solid transparent;
+    background: var(--bg-alt);
+  }
+  .proj .gallery-btn:hover { color: var(--ink); }
+  .proj .cta.disabled { color: var(--ink-dim); border-color: transparent; background: transparent; cursor: default; padding-left: 0; }
 
   .icon-wrap {
     width: 100%; height: 100%;
     display: flex; align-items: center; justify-content: center;
     background: var(--accent-2-soft);
   }
-  .icon-wrap img { width: 96px; height: 96px; object-fit: cover; border-radius: 20px; }
+  .icon-wrap img { width: 88px; height: 88px; object-fit: cover; border-radius: 18px; }
+
+  a.linkwrap { display: contents; }
+  a.linkwrap, a.linkwrap * { text-decoration: none; }
 
   /* about */
   #about p { max-width: 620px; color: var(--ink-dim); font-size: 16px; }
   #about p + p { margin-top: 14px; }
 
   /* footer */
-  footer { padding: 36px 0 64px; }
-  .footlinks { display: flex; flex-wrap: wrap; gap: 12px; }
+  footer { padding: 32px 0 60px; }
+  .footlinks { display: flex; flex-wrap: wrap; gap: 10px; }
   .footlinks a {
-    font-size: 13.5px; font-weight: 800;
-    padding: 10px 18px; border-radius: 10px;
-    border: 2px solid var(--ink);
+    font-size: 13.5px; font-weight: 700;
+    padding: 9px 16px; border-radius: 9px;
+    border: 1px solid var(--border);
     background: var(--card);
     text-decoration: none;
-    box-shadow: 3px 3px 0 var(--shadow-c);
-    display: inline-flex; align-items: center; gap: 6px;
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
   }
-  .footlinks a:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--shadow-c); color: var(--accent); }
-  .copyright { margin-top: 30px; font-size: 12.5px; color: var(--ink-dim); }
+  .footlinks a:hover { border-color: var(--accent); color: var(--accent); }
+  .copyright { margin-top: 26px; font-size: 12.5px; color: var(--ink-dim); }
+
+  /* lightbox */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 100;
+    display: none;
+    align-items: center; justify-content: center;
+    background: rgba(20, 14, 8, 0.82);
+    padding: 32px;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-inner { max-width: 1100px; width: 100%; }
+  .lightbox-frame {
+    background: var(--card);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .lightbox-frame img {
+    width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    background: var(--bg-alt);
+  }
+  .lightbox-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px;
+    color: var(--ink);
+  }
+  .lightbox-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 15px; }
+  .lightbox-controls { display: flex; align-items: center; gap: 10px; }
+  .lightbox-count { font-size: 12.5px; color: var(--ink-dim); font-weight: 700; }
+  .lightbox-btn {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+    color: var(--ink);
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .lightbox-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .lightbox-close {
+    position: absolute; top: -14px; right: -14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--ink); color: var(--bg);
+    border: none; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,.3);
+  }
+  .lightbox-frame-wrap { position: relative; }
 </style>
 </head>
 <body>
@@ -242,18 +281,12 @@
   <div class="wrap">
 
     <div id="top" class="hero">
-      <svg class="sparkle" style="left:8px; top:18px; width:22px; height:22px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
-      <svg class="sparkle" style="left:250px; top:0px; width:14px; height:14px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
-
       <div class="hero-mascot"><img src="images/choicebuds-icon.png" alt="" /></div>
 
       <div class="eyebrow">Indie developer</div>
       <h1>Building tactical games, and the small tools that help fund them.</h1>
-      <svg class="squiggle" viewBox="0 0 140 14" width="140" fill="none"><path d="M2 8 Q 18 2, 35 8 T 68 8 T 101 8 T 134 8" stroke-width="3" stroke-linecap="round"/></svg>
       <p class="sub">I'm Vanny. My main focus is Pantheon Tactics — a turn-based ARPG roguelike — alongside ChoiceBuds, a team-building tool for competitive Pokémon VGC. In between, I ship small Tailwind kits and templates to help keep the lights on.</p>
     </div>
-
-    <svg class="wave" viewBox="0 0 920 16" preserveAspectRatio="none"><path d="M0 8 Q 15 2, 30 8 T 60 8 T 90 8 T 120 8 T 150 8 T 180 8 T 210 8 T 240 8 T 270 8 T 300 8 T 330 8 T 360 8 T 390 8 T 420 8 T 450 8 T 480 8 T 510 8 T 540 8 T 570 8 T 600 8 T 630 8 T 660 8 T 690 8 T 720 8 T 750 8 T 780 8 T 810 8 T 840 8 T 870 8 T 900 8 T 920 8"/></svg>
 
     <section id="games">
       <div class="section-head">
@@ -266,7 +299,7 @@
         <div class="proj">
           <div class="media">
             <div class="placeholder">
-              <span class="glyph">⚔️</span>
+              <span class="glyph">⚔</span>
               <span>Screenshots coming soon</span>
             </div>
           </div>
@@ -280,28 +313,29 @@
           </div>
         </div>
 
-        <a class="linkwrap" href="https://github.com/vanwheels/ChoiceBuds" target="_blank" rel="noopener">
-          <div class="proj">
-            <div class="media">
-              <div class="icon-wrap">
-                <img src="images/choicebuds-icon.png" alt="ChoiceBuds" />
-              </div>
+        <div class="proj" data-gallery-title="ChoiceBuds">
+          <div class="media clickable gallery-trigger">
+            <img src="images/choicebuds-screenshot-1.png" alt="ChoiceBuds" />
+          </div>
+          <div class="body">
+            <div class="row">
+              <h3 class="clickable gallery-trigger">ChoiceBuds</h3>
+              <span class="status">In development</span>
             </div>
-            <div class="body">
-              <div class="row">
-                <h3>ChoiceBuds</h3>
-                <span class="status">In development</span>
-              </div>
-              <p class="desc">A Pokémon VGC team-builder — import teams from Showdown or PokePaste, run damage calculations, check format legality, and export an official team-sheet PDF.</p>
-              <span class="cta">View on GitHub →</span>
+            <p class="desc">A Pokémon VGC team-builder — import teams from Showdown or PokePaste, run damage calculations, check format legality, and export an official team-sheet PDF.</p>
+            <div class="actions">
+              <button class="gallery-btn gallery-trigger">View screenshots</button>
+              <a class="cta" href="https://github.com/vanwheels/ChoiceBuds" target="_blank" rel="noopener">View on GitHub →</a>
             </div>
           </div>
-        </a>
+          <div class="gallery-images" hidden>
+            <img src="images/choicebuds-screenshot-1.png" alt="ChoiceBuds team view">
+            <img src="images/choicebuds-icon.png" alt="ChoiceBuds icon">
+          </div>
+        </div>
 
       </div>
     </section>
-
-    <svg class="wave" viewBox="0 0 920 16" preserveAspectRatio="none"><path d="M0 8 Q 15 14, 30 8 T 60 8 T 90 8 T 120 8 T 150 8 T 180 8 T 210 8 T 240 8 T 270 8 T 300 8 T 330 8 T 360 8 T 390 8 T 420 8 T 450 8 T 480 8 T 510 8 T 540 8 T 570 8 T 600 8 T 630 8 T 660 8 T 690 8 T 720 8 T 750 8 T 780 8 T 810 8 T 840 8 T 870 8 T 900 8 T 920 8"/></svg>
 
     <section id="credits">
       <div class="section-head">
@@ -342,8 +376,6 @@
       </div>
     </section>
 
-    <svg class="wave" viewBox="0 0 920 16" preserveAspectRatio="none"><path d="M0 8 Q 15 2, 30 8 T 60 8 T 90 8 T 120 8 T 150 8 T 180 8 T 210 8 T 240 8 T 270 8 T 300 8 T 330 8 T 360 8 T 390 8 T 420 8 T 450 8 T 480 8 T 510 8 T 540 8 T 570 8 T 600 8 T 630 8 T 660 8 T 690 8 T 720 8 T 750 8 T 780 8 T 810 8 T 840 8 T 870 8 T 900 8 T 920 8"/></svg>
-
     <section id="products">
       <div class="section-head">
         <div class="tag">Shipped</div>
@@ -352,43 +384,58 @@
       </div>
       <div class="grid two">
 
-        <a class="linkwrap" href="https://vannyproductions.gumroad.com/l/CyberKit" target="_blank" rel="noopener">
-          <div class="proj">
-            <div class="media"><img src="images/cyberkit-cover.png" alt="CyberKit" /></div>
-            <div class="body">
-              <h3>CyberKit</h3>
-              <p class="desc">A cyberpunk Tailwind CSS component kit — 5 themes, zero JavaScript, zero config.</p>
-              <span class="cta">View on Gumroad →</span>
+        <div class="proj" data-gallery-title="CyberKit">
+          <div class="media clickable gallery-trigger"><img src="images/cyberkit-cover.png" alt="CyberKit" /></div>
+          <div class="body">
+            <h3 class="clickable gallery-trigger">CyberKit</h3>
+            <p class="desc">A cyberpunk Tailwind CSS component kit — 5 themes, zero JavaScript, zero config.</p>
+            <div class="actions">
+              <button class="gallery-btn gallery-trigger">View screenshots</button>
+              <a class="cta" href="https://vannyproductions.gumroad.com/l/CyberKit" target="_blank" rel="noopener">View on Gumroad →</a>
             </div>
           </div>
-        </a>
+          <div class="gallery-images" hidden>
+            <img src="images/cyberkit-cover.png" alt="CyberKit cover">
+            <img src="images/cyberkit-thumbnail.png" alt="CyberKit thumbnail">
+            <img src="images/cyberkit-demo.gif" alt="CyberKit demo">
+          </div>
+        </div>
 
-        <a class="linkwrap" href="https://vannyproductions.gumroad.com/l/ClearDeck" target="_blank" rel="noopener">
-          <div class="proj">
-            <div class="media"><img src="images/cleardeck-cover.png" alt="ClearDeck" /></div>
-            <div class="body">
-              <h3>ClearDeck</h3>
-              <p class="desc">A light-mode SaaS dashboard Tailwind kit — 3 themes, copy-paste ready.</p>
-              <span class="cta">View on Gumroad →</span>
+        <div class="proj" data-gallery-title="ClearDeck">
+          <div class="media clickable gallery-trigger"><img src="images/cleardeck-cover.png" alt="ClearDeck" /></div>
+          <div class="body">
+            <h3 class="clickable gallery-trigger">ClearDeck</h3>
+            <p class="desc">A light-mode SaaS dashboard Tailwind kit — 3 themes, copy-paste ready.</p>
+            <div class="actions">
+              <button class="gallery-btn gallery-trigger">View screenshots</button>
+              <a class="cta" href="https://vannyproductions.gumroad.com/l/ClearDeck" target="_blank" rel="noopener">View on Gumroad →</a>
             </div>
           </div>
-        </a>
+          <div class="gallery-images" hidden>
+            <img src="images/cleardeck-cover.png" alt="ClearDeck cover">
+            <img src="images/cleardeck-thumbnail.png" alt="ClearDeck thumbnail">
+            <img src="images/cleardeck-demo.gif" alt="ClearDeck demo">
+          </div>
+        </div>
 
-        <a class="linkwrap" href="https://vannyproductions.gumroad.com/l/FreelanceCRM" target="_blank" rel="noopener">
-          <div class="proj">
-            <div class="media"><img src="images/freelancecrm-cover.png" alt="Freelance Client CRM" /></div>
-            <div class="body">
-              <h3>Freelance Client CRM</h3>
-              <p class="desc">A Notion template for tracking clients, projects, and invoices — with rollups built in.</p>
-              <span class="cta">View on Gumroad →</span>
+        <div class="proj" data-gallery-title="Freelance Client CRM">
+          <div class="media clickable gallery-trigger"><img src="images/freelancecrm-cover.png" alt="Freelance Client CRM" /></div>
+          <div class="body">
+            <h3 class="clickable gallery-trigger">Freelance Client CRM</h3>
+            <p class="desc">A Notion template for tracking clients, projects, and invoices — with rollups built in.</p>
+            <div class="actions">
+              <button class="gallery-btn gallery-trigger">View screenshots</button>
+              <a class="cta" href="https://vannyproductions.gumroad.com/l/FreelanceCRM" target="_blank" rel="noopener">View on Gumroad →</a>
             </div>
           </div>
-        </a>
+          <div class="gallery-images" hidden>
+            <img src="images/freelancecrm-cover.png" alt="Freelance CRM cover">
+            <img src="images/freelancecrm-thumbnail.png" alt="Freelance CRM thumbnail">
+          </div>
+        </div>
 
       </div>
     </section>
-
-    <svg class="wave" viewBox="0 0 920 16" preserveAspectRatio="none"><path d="M0 8 Q 15 2, 30 8 T 60 8 T 90 8 T 120 8 T 150 8 T 180 8 T 210 8 T 240 8 T 270 8 T 300 8 T 330 8 T 360 8 T 390 8 T 420 8 T 450 8 T 480 8 T 510 8 T 540 8 T 570 8 T 600 8 T 630 8 T 660 8 T 690 8 T 720 8 T 750 8 T 780 8 T 810 8 T 840 8 T 870 8 T 900 8 T 920 8"/></svg>
 
     <section id="about">
       <div class="section-head">
@@ -417,6 +464,77 @@
     </footer>
 
   </div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-inner">
+      <div class="lightbox-frame-wrap">
+        <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close">✕</button>
+        <div class="lightbox-frame">
+          <img id="lightbox-img" src="" alt="" />
+          <div class="lightbox-bar">
+            <span class="lightbox-title" id="lightbox-title"></span>
+            <div class="lightbox-controls">
+              <span class="lightbox-count" id="lightbox-count"></span>
+              <button class="lightbox-btn" id="lightbox-prev" aria-label="Previous">←</button>
+              <button class="lightbox-btn" id="lightbox-next" aria-label="Next">→</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var modal = document.getElementById('lightbox');
+      var imgEl = document.getElementById('lightbox-img');
+      var titleEl = document.getElementById('lightbox-title');
+      var countEl = document.getElementById('lightbox-count');
+      var gallery = [];
+      var index = 0;
+
+      function render() {
+        imgEl.src = gallery[index];
+        countEl.textContent = (index + 1) + ' / ' + gallery.length;
+      }
+      function open(images, title) {
+        gallery = images;
+        index = 0;
+        titleEl.textContent = title;
+        render();
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      function next() { index = (index + 1) % gallery.length; render(); }
+      function prev() { index = (index - 1 + gallery.length) % gallery.length; render(); }
+
+      document.querySelectorAll('.proj[data-gallery-title]').forEach(function (card) {
+        var title = card.getAttribute('data-gallery-title');
+        var images = Array.from(card.querySelectorAll('.gallery-images img')).map(function (i) {
+          return i.getAttribute('src');
+        });
+        if (!images.length) return;
+        card.querySelectorAll('.gallery-trigger').forEach(function (trigger) {
+          trigger.addEventListener('click', function () { open(images, title); });
+        });
+      });
+
+      document.getElementById('lightbox-close-btn').addEventListener('click', close);
+      document.getElementById('lightbox-next').addEventListener('click', next);
+      document.getElementById('lightbox-prev').addEventListener('click', prev);
+      modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+      document.addEventListener('keydown', function (e) {
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowRight') next();
+        if (e.key === 'ArrowLeft') prev();
+      });
+    })();
+  </script>
 
 </body>
 </html>
