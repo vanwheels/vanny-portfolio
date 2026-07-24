@@ -24,17 +24,17 @@
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #1D160F;
-      --bg-alt: #241B12;
-      --card: #2A2018;
-      --ink: #F7EBD8;
-      --ink-dim: #BBA688;
-      --border: #40331F;
+      --bg: #1A1D22;
+      --bg-alt: #20242B;
+      --card: #262B33;
+      --ink: #EDEAE3;
+      --ink-dim: #9AA1AC;
+      --border: #333944;
       --accent: #FF8156;
       --accent-2: #63C2AB;
       --accent-soft: rgba(255, 129, 86, 0.14);
       --accent-2-soft: rgba(99, 194, 171, 0.13);
-      --shadow: rgba(0, 0, 0, 0.35);
+      --shadow: rgba(0, 0, 0, 0.45);
     }
   }
 
@@ -296,20 +296,23 @@
       </div>
       <div class="grid two">
 
-        <div class="proj">
-          <div class="media">
-            <div class="placeholder">
-              <span class="glyph">⚔</span>
-              <span>Screenshots coming soon</span>
-            </div>
+        <div class="proj" data-gallery-title="Pantheon Tactics">
+          <div class="media clickable gallery-trigger">
+            <img src="images/pantheon-tactics-screenshot-1.png" alt="Pantheon Tactics" />
           </div>
           <div class="body">
             <div class="row">
-              <h3>Pantheon Tactics</h3>
+              <h3 class="clickable gallery-trigger">Pantheon Tactics</h3>
               <span class="status">In development</span>
             </div>
             <p class="desc">A turn-based ARPG roguelike built around the various mythos of the world. Built in Godot.</p>
-            <span class="cta disabled">Not yet public</span>
+            <div class="actions">
+              <button class="gallery-btn gallery-trigger">View screenshots</button>
+              <span class="cta disabled">Not yet public</span>
+            </div>
+          </div>
+          <div class="gallery-images" hidden>
+            <img src="images/pantheon-tactics-screenshot-1.png" alt="Pantheon Tactics battle screen">
           </div>
         </div>
 
