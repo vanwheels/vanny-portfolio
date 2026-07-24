@@ -222,15 +222,19 @@
 
   /* footer */
   footer { padding: 32px 0 60px; }
-  .footlinks { display: flex; flex-wrap: wrap; gap: 10px; }
+  .footlinks { display: flex; flex-wrap: wrap; gap: 12px; }
   .footlinks a {
-    font-size: 13.5px; font-weight: 700;
-    padding: 9px 16px; border-radius: 9px;
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 999px;
     border: 1px solid var(--border);
     background: var(--card);
+    color: var(--ink-dim);
     text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
   }
-  .footlinks a:hover { border-color: var(--accent); color: var(--accent); }
+  .footlinks a svg { width: 19px; height: 19px; }
+  .footlinks a:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
   .copyright { margin-top: 26px; font-size: 12.5px; color: var(--ink-dim); }
 
   /* lightbox */
@@ -476,8 +480,8 @@
         <div class="tag">About</div>
         <h2>Hi, I'm Vanny</h2>
       </div>
-      <p>I'm a game designer and audio engineer splitting my time between two things: building Pantheon Tactics, a turn-based ARPG roguelike woven from world mythology, and ChoiceBuds, a team-building tool for competitive Pokémon VGC players. On the audio side, I've composed, sound-designed, and directed voice-over for other teams' games, including Changeling VR and Gizmo Go-Kartz.</p>
-      <p>Alongside those, I build and ship small, self-contained dev kits and templates — Tailwind component kits, Notion templates — fast, cheap products that help fund the bigger, slower-moving games.</p>
+      <p>I work at the intersection of design and sound — building the systems a game runs on, then building the audio that makes them feel real. Most solo devs pick one side of that; I'd rather do both properly than outsource one and half-know it.</p>
+      <p>The dev kits and templates on this site aren't the main event — they're what keeps the lights on while Pantheon Tactics and ChoiceBuds get the time they actually need.</p>
     </section>
 
     <section id="contact">
@@ -486,10 +490,18 @@
         <h2>Links</h2>
       </div>
       <div class="footlinks">
-        <a href="https://x.com/vannyproduction" target="_blank" rel="noopener">X / Twitter</a>
-        <a href="https://github.com/vanwheels" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://links.vannyproductions.com" target="_blank" rel="noopener">All links</a>
-        <a href="mailto:contact@vannyproductions.com">contact@vannyproductions.com</a>
+        <a href="https://x.com/vannyproduction" target="_blank" rel="noopener" aria-label="X / Twitter" title="X / Twitter">
+          <svg viewBox="0 0 1200 1227" fill="currentColor"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"/></svg>
+        </a>
+        <a href="https://github.com/vanwheels" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
+        </a>
+        <a href="https://links.vannyproductions.com" target="_blank" rel="noopener" aria-label="All links" title="All links">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
+        </a>
+        <a href="mailto:contact@vannyproductions.com" aria-label="Email" title="contact@vannyproductions.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3" /><path d="m3 7 8.14 5.7a1.94 1.94 0 0 0 2.06 0L21 7" /></svg>
+        </a>
       </div>
     </section>
 
