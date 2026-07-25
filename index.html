@@ -8,6 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var stored = localStorage.getItem('theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
 <style>
   :root {
     --bg: #FBF1E1;
@@ -40,6 +47,36 @@
       --accent-3-soft: rgba(183, 156, 255, 0.14);
       --shadow: rgba(0, 0, 0, 0.45);
     }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1A1D22;
+    --bg-alt: #20242B;
+    --card: #262B33;
+    --ink: #EDEAE3;
+    --ink-dim: #9AA1AC;
+    --border: #333944;
+    --accent: #FF8156;
+    --accent-2: #63C2AB;
+    --accent-3: #B79CFF;
+    --accent-soft: rgba(255, 129, 86, 0.14);
+    --accent-2-soft: rgba(99, 194, 171, 0.13);
+    --accent-3-soft: rgba(183, 156, 255, 0.14);
+    --shadow: rgba(0, 0, 0, 0.45);
+  }
+  :root[data-theme="light"] {
+    --bg: #FBF1E1;
+    --bg-alt: #FFFCF5;
+    --card: #FFFEFA;
+    --ink: #2B2016;
+    --ink-dim: #8A7358;
+    --border: #E7D3AC;
+    --accent: #C8502F;
+    --accent-2: #2F6E63;
+    --accent-3: #6D42C4;
+    --accent-soft: rgba(200, 80, 47, 0.10);
+    --accent-2-soft: rgba(47, 110, 99, 0.10);
+    --accent-3-soft: rgba(109, 66, 196, 0.10);
+    --shadow: rgba(43, 32, 22, 0.10);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -78,11 +115,28 @@
     font-family: 'Fraunces', serif;
   }
   .brand .word { font-weight: 700; font-size: 18px; }
-  .navlinks { display: flex; gap: 22px; font-size: 13.5px; font-weight: 700; }
+  .navlinks { display: flex; align-items: center; gap: 22px; font-size: 13.5px; font-weight: 700; }
   .navlinks a { text-decoration: none; color: var(--ink-dim); }
   .navlinks a:hover { color: var(--accent); }
   @media (max-width: 620px) { .navlinks { gap: 14px; } .navlinks a:nth-child(3) { display:none; } }
   @media (max-width: 420px) { .navlinks a:nth-child(4) { display:none; } }
+
+  .theme-toggle {
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--ink-dim);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .theme-toggle svg { width: 17px; height: 17px; }
+  .theme-toggle .icon-moon { display: none; }
+  :root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+  :root[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 
   .hero-mascot {
     position: absolute;
@@ -302,6 +356,10 @@
         <a href="#products">Products</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light / dark mode" title="Toggle light / dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+        </button>
       </div>
     </div>
   </nav>
@@ -531,6 +589,15 @@
   </div>
 
   <script>
+    (function () {
+      var toggle = document.getElementById('theme-toggle');
+      toggle.addEventListener('click', function () {
+        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    })();
+
     (function () {
       var modal = document.getElementById('lightbox');
       var imgEl = document.getElementById('lightbox-img');
