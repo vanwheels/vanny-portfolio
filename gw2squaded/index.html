@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GW2 Squaded — Guild Wars 2 Build &amp; Squad Planner</title>
+<meta name="description" content="GW2 Squaded is a free Windows desktop app for planning Guild Wars 2 builds and squad compositions, with live tooltip-accurate math, a gear optimizer, and chat-link import/export." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var stored = localStorage.getItem('theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+<style>
+  /* Design tokens, reset, nav, theme-toggle, and footer styles below are copied verbatim from
+     the main site (/index.html) rather than shared via a stylesheet — this repo has no build
+     step, and each page is a self-contained file by convention (see CLAUDE-equivalent: no
+     asset pipeline). Keep these two files' shared blocks in sync by hand if the design changes. */
+  :root {
+    --bg: #FBF1E1;
+    --bg-alt: #FFFCF5;
+    --card: #FFFEFA;
+    --ink: #2B2016;
+    --ink-dim: #8A7358;
+    --border: #E7D3AC;
+    --accent: #C8502F;
+    --accent-2: #2F6E63;
+    --accent-3: #6D42C4;
+    --accent-soft: rgba(200, 80, 47, 0.10);
+    --accent-2-soft: rgba(47, 110, 99, 0.10);
+    --accent-3-soft: rgba(109, 66, 196, 0.10);
+    --shadow: rgba(43, 32, 22, 0.10);
+    /* Page-specific accent: matches this project's card accent on the main site. */
+    --gw2-accent: #C0392B;
+    --gw2-accent-soft: rgba(192, 57, 43, 0.10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1A1D22;
+      --bg-alt: #20242B;
+      --card: #262B33;
+      --ink: #EDEAE3;
+      --ink-dim: #9AA1AC;
+      --border: #333944;
+      --accent: #FF8156;
+      --accent-2: #63C2AB;
+      --accent-3: #B79CFF;
+      --accent-soft: rgba(255, 129, 86, 0.14);
+      --accent-2-soft: rgba(99, 194, 171, 0.13);
+      --accent-3-soft: rgba(183, 156, 255, 0.14);
+      --shadow: rgba(0, 0, 0, 0.45);
+      --gw2-accent-soft: rgba(192, 57, 43, 0.16);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1A1D22;
+    --bg-alt: #20242B;
+    --card: #262B33;
+    --ink: #EDEAE3;
+    --ink-dim: #9AA1AC;
+    --border: #333944;
+    --accent: #FF8156;
+    --accent-2: #63C2AB;
+    --accent-3: #B79CFF;
+    --accent-soft: rgba(255, 129, 86, 0.14);
+    --accent-2-soft: rgba(99, 194, 171, 0.13);
+    --accent-3-soft: rgba(183, 156, 255, 0.14);
+    --shadow: rgba(0, 0, 0, 0.45);
+    --gw2-accent-soft: rgba(192, 57, 43, 0.16);
+  }
+  :root[data-theme="light"] {
+    --bg: #FBF1E1;
+    --bg-alt: #FFFCF5;
+    --card: #FFFEFA;
+    --ink: #2B2016;
+    --ink-dim: #8A7358;
+    --border: #E7D3AC;
+    --accent: #C8502F;
+    --accent-2: #2F6E63;
+    --accent-3: #6D42C4;
+    --accent-soft: rgba(200, 80, 47, 0.10);
+    --accent-2-soft: rgba(47, 110, 99, 0.10);
+    --accent-3-soft: rgba(109, 66, 196, 0.10);
+    --shadow: rgba(43, 32, 22, 0.10);
+    --gw2-accent-soft: rgba(192, 57, 43, 0.10);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.55;
+    overflow-x: clip;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  h1, h2, .brand .word { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
+
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; position: relative; }
+
+  /* nav (same as main site) */
+  nav {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 90%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; max-width: 960px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand .mark {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: var(--accent);
+    color: #fff9f0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px;
+    font-family: 'Fraunces', serif;
+  }
+  .brand .word { font-weight: 700; font-size: 18px; }
+  .navlinks { display: flex; align-items: center; gap: 22px; font-size: 13.5px; font-weight: 700; }
+  .navlinks a { text-decoration: none; color: var(--ink-dim); }
+  .navlinks a:hover { color: var(--accent); }
+  @media (max-width: 620px) { .navlinks { gap: 14px; } .navlinks a:nth-child(3) { display:none; } }
+  @media (max-width: 420px) { .navlinks a:nth-child(4) { display:none; } }
+
+  .theme-toggle {
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--ink-dim);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .theme-toggle svg { width: 17px; height: 17px; }
+  .theme-toggle .icon-moon { display: none; }
+  :root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+  :root[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+
+  /* hero */
+  .hero { padding: 72px 0 48px; }
+  .eyebrow {
+    font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--gw2-accent); margin-bottom: 10px;
+  }
+  h1 { font-size: 42px; font-weight: 700; letter-spacing: -0.01em; max-width: 640px; }
+  .hero p.sub { margin-top: 18px; font-size: 17px; color: var(--ink-dim); max-width: 560px; }
+  @media (max-width: 560px) { h1 { font-size: 30px; } }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 26px;
+    padding: 14px 24px;
+    border-radius: 10px;
+    background: var(--gw2-accent);
+    color: #fff9f0;
+    font-weight: 800; font-size: 15.5px;
+    text-decoration: none;
+    box-shadow: 0 6px 20px var(--shadow);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 26px var(--shadow); }
+  .btn-caption { margin-top: 12px; font-size: 12.5px; color: var(--ink-dim); font-weight: 700; }
+
+  /* bands (same pattern as main site) */
+  .band { padding: 36px 0; background: var(--bg); }
+  .band-fill {
+    max-width: 960px; margin: 0 auto;
+    padding: 40px 24px 44px;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--gw2-accent) 6%, var(--bg));
+    border-color: color-mix(in srgb, var(--gw2-accent) 35%, var(--border));
+  }
+  .section-head { margin-bottom: 28px; }
+  .section-head .tag {
+    font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--gw2-accent);
+  }
+  .section-head h2 { font-size: 26px; font-weight: 700; margin-top: 8px; letter-spacing: -0.01em; }
+  .section-head p { margin-top: 8px; color: var(--ink-dim); font-size: 15px; max-width: 560px; }
+
+  /* screenshots: reusing the same in-app captures as the homepage's GW2-Squaded card
+     (images/gw2squaded-screenshot*.png) as placeholders — swap for dedicated shots later. */
+  .grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
+  .grid.two { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 780px) { .grid.three { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 720px) { .grid.two { grid-template-columns: 1fr; } }
+  @media (max-width: 560px) { .grid.three { grid-template-columns: 1fr; } }
+
+  .shot {
+    aspect-ratio: 16/9;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-alt);
+    overflow: hidden;
+  }
+  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .shot-caption { margin-top: 10px; font-size: 13px; color: var(--ink-dim); text-align: center; }
+
+  /* feature cards */
+  .feature {
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--gw2-accent);
+    border-radius: 14px;
+    background: var(--card);
+    padding: 22px 22px 24px;
+    box-shadow: 0 1px 2px var(--shadow);
+  }
+  .feature h3 { font-family: 'Fraunces', serif; font-size: 17.5px; font-weight: 700; margin-bottom: 8px; }
+  .feature p { font-size: 13.5px; color: var(--ink-dim); }
+
+  /* also-includes: intentionally lighter weight than the feature cards above */
+  .also { padding: 44px 0 8px; }
+  .also h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .also ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .also li { font-size: 14.5px; color: var(--ink-dim); padding-left: 18px; position: relative; }
+  .also li::before {
+    content: '–'; position: absolute; left: 0; color: var(--gw2-accent); font-weight: 800;
+  }
+
+  /* footer (same as main site, plus the disclaimer paragraph this page requires) */
+  footer { padding: 40px 0 60px; border-top: 1px solid var(--border); margin-top: 20px; }
+  .disclaimer { font-size: 12.5px; color: var(--ink-dim); max-width: 640px; margin-bottom: 22px; }
+  .disclaimer a { color: var(--ink-dim); text-decoration: underline; }
+  .footlinks { display: flex; flex-wrap: wrap; gap: 12px; }
+  .footlinks a {
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--ink-dim);
+    text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  }
+  .footlinks a svg { width: 19px; height: 19px; }
+  .footlinks a:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .copyright { margin-top: 26px; font-size: 12.5px; color: var(--ink-dim); }
+</style>
+</head>
+<body>
+
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="/">
+        <span class="mark">V</span>
+        <span class="word">Vanny</span>
+      </a>
+      <div class="navlinks">
+        <a href="/#games">Games</a>
+        <a href="/#products">Products</a>
+        <a href="/#about">About</a>
+        <a href="/#contact">Contact</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light / dark mode" title="Toggle light / dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="eyebrow">Windows · Free</div>
+      <h1>GW2 Squaded</h1>
+      <p class="sub">A free desktop app for planning Guild Wars 2 builds and squad compositions.</p>
+      <a class="btn-primary" href="https://github.com/vanwheels/GW2-Squaded/releases/latest" target="_blank" rel="noopener">
+        Download for Windows →
+      </a>
+      <div class="btn-caption">Free · No account required · Auto-updates in place</div>
+    </div>
+  </div>
+
+  <section class="band">
+    <div class="band-fill">
+      <div class="section-head">
+        <div class="tag">A look inside</div>
+        <h2>Screenshots</h2>
+        <p>A quick look at the build editor and squad planner in action.</p>
+      </div>
+      <div class="grid three">
+        <figure>
+          <div class="shot"><img src="../images/gw2squaded-screenshot1.png" alt="GW2 Squaded build list" /></div>
+          <div class="shot-caption">Build list</div>
+        </figure>
+        <figure>
+          <div class="shot"><img src="../images/gw2squaded-screenshot2.png" alt="GW2 Squaded build editor" /></div>
+          <div class="shot-caption">Build editor</div>
+        </figure>
+        <figure>
+          <div class="shot"><img src="../images/gw2squaded-screenshot3.png" alt="GW2 Squaded squad composition view" /></div>
+          <div class="shot-caption">Squad board</div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="band-fill">
+      <div class="section-head">
+        <div class="tag">What it does</div>
+        <h2>Built for theorycrafting and squad planning</h2>
+      </div>
+      <div class="grid two">
+        <div class="feature">
+          <h3>Live, tooltip-accurate math</h3>
+          <p>A full build editor for traits, skills, and gear, with damage, healing, and boon numbers computed live as you make changes — sourced from real GW2 wiki data, not static tooltip text.</p>
+        </div>
+        <div class="feature">
+          <h3>Gear optimizer</h3>
+          <p>Set stat floors and pick what to maximize, and it searches the full legal gear, rune, and infusion combo pool for the best fit against your target.</p>
+        </div>
+        <div class="feature">
+          <h3>Chat-link import &amp; export</h3>
+          <p>Paste a build code copied in-game and it decodes straight into the editor — or copy one back out to share in Guild Wars 2 itself.</p>
+        </div>
+        <div class="feature">
+          <h3>Squad composition planning</h3>
+          <p>Lay out up to 10 parties of 5 with saved builds, or drop in lightweight placeholder picks for roles you haven't planned out yet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="also">
+      <h2>Also includes</h2>
+      <ul>
+        <li>One-click screenshot export for sharing a build or squad comp</li>
+        <li>A companion Discord bot for running squad boards directly in a server</li>
+        <li>Auto-updates with in-app patch notes — no manual reinstalls</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p class="disclaimer">
+        GW2 Squaded is not affiliated with or endorsed by ArenaNet or NCSOFT. Guild Wars 2 game
+        data is used under
+        <a href="https://www.guildwars2.com/en/legal/guild-wars-2-content-terms-of-use/" target="_blank" rel="noopener">ArenaNet's Content Terms of Use</a>.
+      </p>
+      <div class="footlinks">
+        <a href="https://x.com/vannyproduction" target="_blank" rel="noopener" aria-label="X / Twitter" title="X / Twitter">
+          <svg viewBox="0 0 1200 1227" fill="currentColor"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"/></svg>
+        </a>
+        <a href="https://github.com/vanwheels" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
+        </a>
+        <a href="https://links.vannyproductions.com" target="_blank" rel="noopener" aria-label="All links" title="All links">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
+        </a>
+        <a href="mailto:contact@vannyproductions.com" aria-label="Email" title="contact@vannyproductions.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3" /><path d="m3 7 8.14 5.7a1.94 1.94 0 0 0 2.06 0L21 7" /></svg>
+        </a>
+      </div>
+      <div class="copyright">© 2026 Vanny Productions</div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById('theme-toggle');
+      toggle.addEventListener('click', function () {
+        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    })();
+  </script>
+
+</body>
+</html>
