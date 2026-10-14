@@ -118,8 +118,8 @@
   .navlinks { display: flex; align-items: center; gap: 22px; font-size: 13.5px; font-weight: 700; }
   .navlinks a { text-decoration: none; color: var(--ink-dim); }
   .navlinks a:hover { color: var(--accent); }
-  @media (max-width: 620px) { .navlinks { gap: 14px; } .navlinks a:nth-child(3) { display:none; } }
-  @media (max-width: 420px) { .navlinks a:nth-child(4) { display:none; } }
+  @media (max-width: 620px) { .navlinks { gap: 14px; } }
+  @media (max-width: 420px) { .navlinks a:nth-child(3) { display:none; } }
 
   .theme-toggle {
     width: 34px; height: 34px;
@@ -137,19 +137,6 @@
   .theme-toggle .icon-moon { display: none; }
   :root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
   :root[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
-
-  .hero-mascot {
-    position: absolute;
-    right: 0;
-    top: 10px;
-    width: 84px; height: 84px;
-    border-radius: 50%;
-    box-shadow: 0 6px 20px var(--shadow);
-    overflow: hidden;
-    background: var(--card);
-  }
-  .hero-mascot img { width: 100%; height: 100%; object-fit: cover; }
-  @media (max-width: 720px) { .hero-mascot { display: none; } }
 
   /* scroll-following runner sprite (proof of concept, placeholder art) */
   .scroll-mascot {
@@ -208,20 +195,8 @@
   @media (max-width: 720px) { .scroll-mascot { display: none; } }
   @media (prefers-reduced-motion: reduce) { .scroll-mascot { display: none; } }
 
-  /* hero */
-  .hero { padding: 72px 0 56px; position: relative; }
-  .eyebrow {
-    font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
-    color: var(--accent); margin-bottom: 10px;
-  }
-  h1 { font-size: 42px; font-weight: 700; letter-spacing: -0.01em; max-width: 640px; }
-  .hero p.sub {
-    margin-top: 18px; font-size: 17px; color: var(--ink-dim); max-width: 560px;
-  }
-  @media (max-width: 560px) { h1 { font-size: 30px; } }
-
   /* sections */
-  #about, #contact { padding: 48px 0 52px; border-top: 1px solid var(--border); }
+  #contact { padding: 48px 0 52px; border-top: 1px solid var(--border); }
 
   .band { padding: 36px 0; background: var(--bg); }
   .band-fill {
@@ -330,10 +305,6 @@
   a.linkwrap { display: contents; }
   a.linkwrap, a.linkwrap * { text-decoration: none; }
 
-  /* about */
-  #about p { max-width: 620px; color: var(--ink-dim); font-size: 16px; }
-  #about p + p { margin-top: 14px; }
-
   /* footer */
   footer { padding: 32px 0 60px; }
   .footlinks { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -418,7 +389,6 @@
       <div class="navlinks">
         <a href="#games">Games</a>
         <a href="#products">Products</a>
-        <a href="#about">About</a>
         <a href="#contact">Contact</a>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light / dark mode" title="Toggle light / dark mode">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
@@ -427,16 +397,6 @@
       </div>
     </div>
   </nav>
-
-  <div class="wrap">
-    <div id="top" class="hero">
-      <div class="hero-mascot"><img src="images/choicebuds-icon.png" alt="" /></div>
-
-      <div class="eyebrow">Game Designer &amp; Audio Engineer</div>
-      <h1>I design tactical games, and engineer the sound worlds that bring them to life.</h1>
-      <p class="sub">I'm Vanny. On the design side, I'm building Pantheon Tactics, a turn-based ARPG roguelike, and ChoiceBuds, a team-building tool for competitive Pokémon VGC. On the audio side, I've composed, sound-designed, and directed voice-over for other teams' games. In between, I ship small dev kits and templates to help fund it all.</p>
-    </div>
-  </div>
 
   <section id="games" class="band band-games">
     <div class="band-fill">
@@ -608,15 +568,6 @@
   </section>
 
   <div class="wrap">
-    <section id="about">
-      <div class="section-head">
-        <div class="tag">About</div>
-        <h2>Hi, I'm Vanny</h2>
-      </div>
-      <p>I work at the intersection of design and sound — building the systems a game runs on, then building the audio that makes them feel real. Most solo devs pick one side of that; I'd rather do both properly than outsource one and half-know it.</p>
-      <p>The dev kits and templates on this site aren't the main event — they're what keeps the lights on while Pantheon Tactics and ChoiceBuds get the time they actually need.</p>
-    </section>
-
     <section id="contact">
       <div class="section-head">
         <div class="tag">Get in touch</div>
