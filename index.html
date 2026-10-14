@@ -317,12 +317,15 @@
   .proj .gallery-btn:hover { color: color-mix(in srgb, var(--proj-accent, var(--accent)) 70%, var(--ink) 30%); }
   .proj .cta.disabled { color: var(--ink-dim); border-color: transparent; background: transparent; cursor: default; padding-left: 0; }
 
+  /* icon cover for cards that link to a live app: an icon never goes stale the way a
+     screenshot does. Tinted by the card's own --proj-accent. Selector is .proj .media-scoped
+     so it outranks the generic `.proj .media img` fill rule. */
   .icon-wrap {
     width: 100%; height: 100%;
     display: flex; align-items: center; justify-content: center;
-    background: var(--accent-2-soft);
+    background: color-mix(in srgb, var(--proj-accent, var(--accent-2)) 14%, var(--bg-alt));
   }
-  .icon-wrap img { width: 88px; height: 88px; object-fit: cover; border-radius: 18px; }
+  .proj .media .icon-wrap img { width: 104px; height: 104px; object-fit: contain; }
 
   a.linkwrap { display: contents; }
   a.linkwrap, a.linkwrap * { text-decoration: none; }
@@ -467,7 +470,7 @@
         <a class="linkwrap" href="https://choicebuds.vannyproductions.com" target="_blank" rel="noopener">
           <div class="proj" style="--proj-accent:#4C5FD7;">
             <div class="media">
-              <img src="images/choicebuds-screenshot-1.png" alt="ChoiceBuds" />
+              <div class="icon-wrap"><img src="images/choicebuds-icon.png" alt="ChoiceBuds" /></div>
             </div>
             <div class="body">
               <div class="row">
@@ -483,7 +486,7 @@
         <a class="linkwrap" href="https://gw2squaded.vannyproductions.com" target="_blank" rel="noopener">
           <div class="proj" style="--proj-accent:#C0392B;">
             <div class="media">
-              <img src="images/gw2squaded-screenshot1.png" alt="GW2-Squaded build list" />
+              <div class="icon-wrap"><img src="images/gw2squaded-icon.png" alt="GW2-Squaded" /></div>
             </div>
             <div class="body">
               <div class="row">
